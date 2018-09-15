@@ -18,6 +18,7 @@ namespace EFBConnect
                                       @"HKEY_CURRENT_USER\Software\LockheedMartin\Prepar3D",
                                       @"HKEY_CURRENT_USER\Software\Lockheed Martin\Prepar3D v2",
                                       @"HKEY_CURRENT_USER\Software\Lockheed Martin\Prepar3D v3",
+                                      @"HKEY_CURRENT_USER\Software\Lockheed Martin\Prepar3D v4",
                                       @"HKEY_CURRENT_USER\Software\Microsoft\Microsoft Games\Flight Simulator - Steam Edition"
                                   };
             foreach (var sim in simulators)
@@ -77,7 +78,7 @@ namespace EFBConnect
             sc = new SimConnect(null);
 
             sc.OnRecvOpen += sc_OnRecvOpen;
-            sc.OnRecvException += sc_OnRecvException;
+            //sc.OnRecvException += sc_OnRecvException;
             sc.OnRecvQuit += sc_OnRecvQuit;
 
             sc.OnRecvEvent += sc_OnRecvEvent;
@@ -158,11 +159,11 @@ namespace EFBConnect
             sc.SubscribeToSystemEvent(Events.SixHz, "6Hz");
         }
 
-        void sc_OnRecvException(SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
-        {
-            log.Warning(string.Format("OnRecvException: {0} ({1}) {2} {3}", data.dwException.ToString(), Enum.GetName(typeof(SIMCONNECT_EXCEPTION), data.dwException), data.dwSendID.ToString(), data.dwIndex.ToString()));
-            sc.Text(SIMCONNECT_TEXT_TYPE.PRINT_WHITE, 10.0f, Requests.DisplayText, string.Format("{0} SimConnect Exception: {1} ({2})", appName, data.dwException.ToString(), Enum.GetName(typeof(SIMCONNECT_EXCEPTION), data.dwException)));
-        }
+        //void sc_OnRecvException(SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
+        //{
+        //    log.Warning(string.Format("OnRecvException: {0} ({1}) {2} {3}", data.dwException.ToString(), Enum.GetName(typeof(SIMCONNECT_EXCEPTION), data.dwException), data.dwSendID.ToString(), data.dwIndex.ToString()));
+        //    sc.Text(SIMCONNECT_TEXT_TYPE.PRINT_WHITE, 10.0f, Requests.DisplayText, string.Format("{0} SimConnect Exception: {1} ({2})", appName, data.dwException.ToString(), Enum.GetName(typeof(SIMCONNECT_EXCEPTION), data.dwException)));
+        //}
 
         void sc_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)
         {
